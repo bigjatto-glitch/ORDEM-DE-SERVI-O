@@ -1,0 +1,4 @@
+[functions.big-norte-usuarios]
+# O handler valida o JWT real com /auth/v1/user e confere o perfil admin no servidor.
+# Necessário para compatibilidade com chaves de assinatura assimétricas do projeto.
+verify_jwt = false

@@ -1,0 +1,6 @@
+const VERSION='big-norte-shell-2026.10.29-1';
+const ASSETS=['./','./index.html','./cloud.js','./logo.jpeg','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
+self.addEventListener('install',event=>event.waitUntil(caches.open(VERSION).then(cache=>cache.addAll(ASSETS))));
+// Não forçar atualização durante execução de OS. A nova versão assume quando as abas antigas fecharem.
+self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('big-norte-shell-')&&k!==VERSION).map(k=>caches.delete(k))))));
+self.addEventListener('fetch',event=>{const url=new URL(event.request.url);if(event.request.method!=='GET'||url.origin!==self.location.origin||!url.href.startsWith(self.registration.scope))return;const allowed=ASSETS.map(p=>new URL(p,self.registration.scope).pathname);if(event.request.mode!=='navigate'&&!allowed.includes(url.pathname))return;event.respondWith(caches.open(VERSION).then(async cache=>{let hit=await cache.match(event.request,{ignoreSearch:true});if(hit)return hit;if(event.request.mode==='navigate'){let shell=await cache.match(new URL('./index.html',self.registration.scope).href);if(shell)return shell}return fetch(event.request)}))});

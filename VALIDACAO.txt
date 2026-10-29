@@ -1,0 +1,25 @@
+VERIFICAÇÕES REALIZADAS
+- Sintaxe do JavaScript e execução das três etapas SQL em PostgreSQL de teste.
+- RLS: motorista consulta somente suas OS pendentes; administrativo não altera serviços/equipes.
+- Motorista cadastra cliente, agenda e OS juntos, na própria equipe.
+- Campos da execução podem ser alterados; mudanças indevidas de endereço/equipe são rejeitadas.
+- Conclusão numerada no servidor e OS concluída oculta para o motorista.
+- Reenvio da mesma operação não duplica registros.
+- Versão antiga gera conflito e preserva a fila local.
+- IndexedDB simulado com salvamentos consecutivos e recuperação da fila.
+- Fila da interface integrada às funções SQL, incluindo resposta perdida após commit.
+- Confirmação do arquivo privado antes da conclusão definitiva da OS.
+- Função de usuários rejeita solicitante sem sessão ou motorista.
+- Cadastro de acesso pelo administrador, usando chaves apenas no servidor.
+- Endpoint e chave pública do projeto informado responderam ao teste de configuração.
+- API real negou bn_snapshot sem autenticação, como esperado.
+- Prévia do navegador identificou corretamente uma origem HTTP sem recursos seguros.
+
+NÃO VERIFICADO AINDA
+- Login real: não foi solicitada nem utilizada a senha do administrador.
+- Publicação da função e execução da etapa 3 na sua conta (dependem de você).
+- Instalação PWA e abertura offline pelo domínio HTTPS final do GitHub Pages.
+- Câmera, microfone e gravação em cada modelo de celular.
+- Envio simultâneo entre os aparelhos reais, limites e rotina de backup do plano contratado.
+
+Nenhum registro fictício foi criado no projeto real durante estes testes.

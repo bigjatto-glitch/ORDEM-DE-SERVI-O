@@ -1,0 +1,119 @@
+BIG NORTE — CONEXÃO ONLINE E USO OFFLINE
+Versão de implantação 2026.10.29-1
+
+O QUE ESTÁ NESTE PACOTE
+app/: arquivos do aplicativo para o GitHub Pages.
+supabase/03_anexos_online.sql: último SQL de preparação do banco.
+supabase/big-norte-usuarios.ts: função protegida para gerenciar usuários.
+supabase/config.toml: configuração para quem usar o Supabase CLI.
+VALIDACAO.txt: verificações realizadas e testes que ainda dependem dos aparelhos.
+
+ANTES DE PUBLICAR
+As etapas SQL 1 e 2 e a autorização do administrador já foram executadas por você.
+O aplicativo usa o projeto Supabase que você informou. Nenhuma chave secreta
+está nos arquivos da pasta app. Nenhum dado de demonstração é importado.
+
+1 — EXECUTAR O ÚLTIMO SQL
+Abra supabase/03_anexos_online.sql no Bloco de Notas.
+Copie tudo. No Supabase Big Norte, abra SQL Editor > New query, cole e Run.
+Espere a mensagem de sucesso antes de prosseguir.
+Esse SQL configura a confirmação e a remoção de arquivos privados, a leitura
+do auxiliar da própria equipe e a data local de conclusão para os relatórios.
+
+2 — PUBLICAR A FUNÇÃO DE USUÁRIOS
+No Supabase, entre em Edge Functions.
+Clique Deploy a new function > Via Editor.
+Use o nome EXATO: big-norte-usuarios
+Abra supabase/big-norte-usuarios.ts no Bloco de Notas e copie seu conteúdo.
+Substitua o código do arquivo index.ts do editor pelo conteúdo copiado.
+Clique Deploy function e aguarde o sucesso.
+Abra Details/configurações dessa função e desligue somente a opção de
+verificação JWT legada, quando apresentada como Verify JWT with legacy secret.
+A função mantém a autenticação: verifica o token real em /auth/v1/user e
+confere, no servidor, se o solicitante é administrador ativo. Outros perfis
+não podem criar, excluir ou ativar usuários.
+As variáveis SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY são fornecidas pelo
+próprio ambiente do Supabase. Não copie nenhuma chave secreta para o GitHub,
+para cloud.js ou para a conversa. Se a função reclamar de configuração,
+interrompa e envie somente a mensagem de erro, sem os valores das chaves.
+
+Opcional para equipes que usam CLI: coloque o código em
+supabase/functions/big-norte-usuarios/index.ts e use o config.toml fornecido.
+
+3 — ATUALIZAR O GITHUB PAGES
+Extraia o ZIP no computador.
+No repositório do aplicativo, use Add file > Upload files.
+Envie TODOS OS ARQUIVOS que estão DENTRO da pasta app para a raiz do site:
+index.html
+cloud.js
+sw.js
+manifest.webmanifest
+logo.jpeg
+icon-192.png
+icon-512.png
+.nojekyll (se o seletor de arquivos exibir esse arquivo)
+Não envie a pasta app como uma subpasta se o seu site já usa index.html na raiz.
+Não substitua apenas o index: esta versão precisa dos demais arquivos.
+Não envie os arquivos supabase ao site; eles são para as configurações acima.
+Faça Commit changes e aguarde a publicação do GitHub Pages.
+Abra o endereço HTTPS do seu próprio GitHub Pages. O link de demonstração
+anterior não foi convertido nesta etapa.
+
+4 — PRIMEIRO ACESSO
+Administrador: use seu e-mail já cadastrado e a senha que você definiu no Supabase.
+A senha antiga da demonstração não é aceita.
+Cadastre os serviços, veículos, colaboradores e equipes com motorista e auxiliar.
+Na aba Usuários, crie os acessos dos motoristas e do administrativo.
+Esses usuários entram com o nome de usuário e a senha cadastrados pelo administrador.
+A criação e a administração de acessos exigem internet.
+Nas configurações, confira nome, logomarca, endereço, cores e link de avaliação.
+
+5 — PREPARAR CADA CELULAR PARA O TRABALHO OFFLINE
+Abra o site HTTPS com internet e entre na conta do motorista.
+Espere baixar as OS atribuídas e aparecer “Aplicativo disponível offline”.
+Adicione à tela inicial/instale pelo menu do navegador, se desejar.
+O primeiro acesso em cada aparelho exige internet.
+As OS recebidas antes da perda de sinal continuam disponíveis.
+O motorista também pode cadastrar uma nova OS para sua própria equipe.
+Registre execução, pagamento, assinatura, fotos e vídeos normalmente.
+Espere o aplicativo confirmar que os arquivos foram salvos no aparelho.
+Quando a conexão voltar, deixe o app aberto para confirmar o envio.
+Na falta de internet, não limpe os dados do navegador e não desinstale o app.
+
+COMO A SINCRONIZAÇÃO FUNCIONA
+Os registros e a fila são gravados no IndexedDB, separados por usuário.
+O envio é automático ao reconectar, reabrir ou voltar à tela do aplicativo.
+Uma única aba pode editar o aplicativo por vez em cada navegador.
+Cada operação tem identificador único: reenviar após uma queda de conexão
+não cria outra OS. Versões antigas geram conflito, sem sobrescrever o servidor
+automaticamente. Em Pendências, é possível exportar os registros e revisar
+conflitos. A exportação JSON de pendências NÃO inclui fotos/vídeos.
+Na conclusão, os anexos são confirmados antes do envio da conclusão definitiva.
+Uma OS offline fica com número provisório. O servidor atribui o número oficial
+quando confirma a conclusão; entre aparelhos sem sinal, a sequência oficial
+segue a ordem das confirmações no servidor, não uma cronologia global offline.
+A data registrada no aparelho é preservada para os relatórios de execução.
+
+FOTOS E VÍDEOS
+As capturas internas recebem data/hora do aparelho, endereço da OS e logomarca.
+Arquivos escolhidos da galeria continuam originais, sem identificação nova.
+Limite do aplicativo: 50 MB por arquivo; vídeos internos até 3 minutos/45 MB.
+O aparelho precisa permitir câmera/microfone e suportar a gravação.
+Mantenha a tela aberta durante a gravação e aguarde o salvamento.
+Arquivos enviados ficam no bucket privado big-norte-os, protegidos por perfil.
+No outro aparelho, os metadados aparecem e “Carregar arquivo” baixa o conteúdo
+para visualizar e manter uma cópia offline. Não baixa todos os vídeos sozinho.
+Os anexos continuam separados do PDF da OS.
+
+LIMITES E VALIDAÇÃO ANTES DO USO DA EMPRESA
+O envio com o app totalmente fechado não é garantido pelo navegador.
+A desativação de um acesso passa a valer no servidor imediatamente; um
+aparelho sem sinal pode continuar mostrando a cópia que já estava baixada
+até reconectar. Proteja o acesso físico aos celulares.
+Consultas de CEP, mapas e WhatsApp dependem de seus serviços externos.
+Configure a rotina de backup do banco e dos arquivos na conta/serviço escolhido.
+Este pacote não contrata plano, não cria backup externo automático e não altera
+as opções de recuperação disponíveis na sua conta Supabase.
+Os testes de integração usaram banco de teste e contas fictícias. Seu login
+real, as permissões da função publicada, a câmera e o ciclo offline precisam
+ser validados nos aparelhos da empresa antes do uso definitivo.
