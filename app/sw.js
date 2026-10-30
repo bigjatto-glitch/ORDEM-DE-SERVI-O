@@ -1,5 +1,5 @@
-const VERSION='big-norte-shell-2026.10.30-9';
-const ASSETS=['./','./index.html','./cloud.js','./cashback.js','./logo.jpeg','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
+const VERSION='big-norte-shell-2026.10.30-11';
+const ASSETS=['./','./index.html','./cloud.js','./model-documents.js','./cashback.js','./logo.jpeg','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(VERSION).then(cache=>cache.addAll(ASSETS))));
 // Não forçar atualização durante execução de OS. A nova versão assume quando as abas antigas fecharem.
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('big-norte-shell-')&&k!==VERSION).map(k=>caches.delete(k))))));
