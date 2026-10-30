@@ -279,7 +279,7 @@ function clearSalesAddress(){document.getElementById('vendasEndereco').value='';
 const salesExcelWithAddress=salesExcel;salesExcel=function(){if(!isManager())return;try{return salesExcelWithAddress()}catch(e){alert(e.message||'Não foi possível gerar o Excel.')}};
 
 
-function orderUnitOptions(){return [['m³','m³'],['Manilhas','Manilhas'],['Unidade','Unidade'],['serviço','Serviço'],['viagem','Viagem'],['hora','Hora']]}
+function orderUnitOptions(){return [['m³','m³'],['Manilhas','Manilhas'],['Unidade','Unidade'],['Carrada','Carrada'],['hora','Hora'],['serviço','Serviço'],['viagem','Viagem']]}
 function orderExecutionQuantity(o){return o.volume!==undefined&&o.volume!==null&&o.volume!==''?o.volume:o.quantidade}
 function orderExecutionPrice(o){return o.valorExec!==undefined&&o.valorExec!==null&&o.valorExec!==''?o.valorExec:o.valor}
 function orderExecutionUnit(o){if(o.unidadeExec)return o.unidadeExec;return o.volume!==undefined&&o.volume!==null&&o.volume!==''?'m³':o.unidade||'m³'}
