@@ -1,7 +1,7 @@
 'use strict';
 // Consulta local de dados já autorizados pelo servidor. Não gera pagamentos ou créditos.
 function orderValueCents(o){let present=v=>v!==undefined&&v!==null&&v!=='';let value;if(o.status==='Concluída'){let quantity=present(o.volume)?Number(o.volume):Number(o.quantidade||0),unit=present(o.valorExec)?Number(o.valorExec):Number(o.valor||0);value=present(o.totalFinal)?Number(o.totalFinal):quantity*unit}else value=Number(o.quantidade||0)*Number(o.valor||0);return Number.isFinite(value)?Math.round(value*100):0}
-function orderAmountCell(o){return money(orderValueCents(o)/100)+'<br><span class="badge">'+(o.status==='Concluída'?'Recebido':'Previsto')+'</span>'}
+function orderAmountCell(o){if(o.status==='Não executada')return '<span class="badge">Não executada</span>';return money(orderValueCents(o)/100)+'<br><span class="badge">'+(o.status==='Concluída'?'Recebido':'Previsto')+'</span>'}
 let cashbackSearchState=null;
 function cashbackAddress(o){return String(o.endereco||enderecoCliente(db.clientes.find(c=>c.id===o.cliente))||'').trim()}
 function cashbackAddressKey(value){return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/[^A-Z0-9]+/g,' ').trim()}
