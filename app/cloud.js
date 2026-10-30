@@ -1,6 +1,6 @@
 'use strict';
 // Somente configuração pública. Nunca inserir service_role ou chave secreta neste arquivo.
-const BN={url:'https://yfpmmobzcqthpmjtulwb.supabase.co',key:'sb_publishable_41cjUsPLq_401b-NMWVzOA_EtLCqG4p',bucket:'big-norte-os',version:'2026.10.30-2'};
+const BN={url:'https://yfpmmobzcqthpmjtulwb.supabase.co',key:'sb_publishable_41cjUsPLq_401b-NMWVzOA_EtLCqG4p',bucket:'big-norte-os',version:'2026.10.30-4'};
 const DATA_KINDS=['colaboradores','servicos','veiculos','clientes','equipes','orcamentos','agenda','ordens','pagamentos','empresa'];
 const CLOUD={auth:null,box:null,busy:false,loading:false,writes:Promise.resolve(),refresh:null,timer:null,offlineReady:false,remoteMedia:[],lockRelease:null};
 const clone=x=>JSON.parse(JSON.stringify(x));
